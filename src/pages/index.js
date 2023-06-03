@@ -1,5 +1,5 @@
 import * as React from "react"
-import { graphql } from "gatsby"
+import { Script, graphql } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image"
 
 import { Seo } from "../components/seo"
@@ -13,6 +13,8 @@ const IndexPage = ({data}) => {
   //console.log("index.js typewriters", typewriters)
   return (
     <Layout>
+      <Script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit.min.js" />
+      <Script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit.min.js" />
       <div className="container site-container">
         <StaticImage
           alt="Clifford, a reddish-brown pitbull, posing on a couch and looking stoically at the camera"
@@ -63,17 +65,11 @@ const IndexPage = ({data}) => {
   )
 }
 
-export const Head = () => (
-  <>
-    <Seo title="Home Page - UltraportableTypewriters</title" />
-  </>
-)
-
 export const query = graphql`
   {
     allStrapiTypewriter(filter: {available: {eq: true}}) {
       nodes {
-        strapi_id
+        id
         brand {
           name
           slug
@@ -83,6 +79,7 @@ export const query = graphql`
           slug
         }
         year
+        sn
         price
         images {
           formats {
@@ -106,12 +103,10 @@ export const query = graphql`
   }
 `
 
-export default IndexPage;
+export const Head = ({ location, params, data, pageContext }) => (
+  <>
+    <title>Ultraportable Typewriters - Home</title>
+  </>
+)
 
-/*
-            {paintings.map(painting => {
-              return <div key={painting.slug}>
-                {painting.images && <FeaturedImagelink item={painting} />}
-              </div>
-            })}
-*/
+export default IndexPage;

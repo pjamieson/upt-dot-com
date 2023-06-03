@@ -1,11 +1,10 @@
 import React from "react"
+import { Script } from "gatsby"
 import { MDBLightbox, MDBLightboxItem } from "mdb-react-ui-kit"
-import { getCreatorFullName } from "../utils/creator"
 import { getImageUrl } from "../utils/image-url"
 
-const ImageSet = ({ creator, title, form, prof, images }) => {
+const ImageSet = ({ title, images }) => {
   //console.log("ImageSet images", images)
-  const creatorname = getCreatorFullName(creator)
 
   // Check for first of multiple images being vertical
   let two_up = false
@@ -13,19 +12,20 @@ const ImageSet = ({ creator, title, form, prof, images }) => {
     two_up = true
   }
 
-  const alt_text = `The ${form} ${title} by the ${prof} ${creatorname}`
+  //const alt_text = `The ${form} ${title} by the ${prof} ${creatorname}`
 
   let key = 0
   
-  return (
+  return ( <>
+    <Script src="./src/styles/uikit.min.js" />
     <section>
       { !two_up &&
-        <img src={getImageUrl(images[0], "medium")} className="img-fluid card" alt={alt_text} />
+        <img src={getImageUrl(images[0], "medium")} className="img-fluid card" alt={title} />
       }
       { two_up &&
         <div className="gallery-image-container">
-          <img src={getImageUrl(images[0], "medium")} className="img-fluid card" alt={alt_text} />
-          <img src={getImageUrl(images[1], "medium")} className="img-fluid card" alt={alt_text} />
+          <img src={getImageUrl(images[0], "medium")} className="img-fluid card" alt={title} />
+          <img src={getImageUrl(images[1], "medium")} className="img-fluid card" alt={title} />
         </div>
       }
 
@@ -43,7 +43,7 @@ const ImageSet = ({ creator, title, form, prof, images }) => {
           </MDBLightbox>
         </div>
       }
-    </section>
+    </section></>
   )
 }
 

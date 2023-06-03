@@ -63,7 +63,6 @@ module.exports = {
         "icon": "src/images/icon.png"
       }
     },
-    "gatsby-plugin-mdx",
     "gatsby-plugin-sass",
     "gatsby-plugin-sharp",
     "gatsby-plugin-sitemap",

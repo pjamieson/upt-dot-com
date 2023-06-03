@@ -92,11 +92,8 @@ h1 {
   color: $primary-color !important;
 }
 h2 {
-  font-weight: 500 !important;
+  font-weight: 600 !important;
   color: $blake-brown !important;
-  &.player-subhead {
-    margin-top: -20px;
-  }
 }
 p {
   font-weight: 400;
@@ -765,7 +762,7 @@ p {
     border-radius: 6px;
     img {
       margin-left: 2px;
-      border-radius: 6px 6px 0 0;
+      border-radius: .5rem;
     }
   }
   .card {
@@ -832,7 +829,7 @@ p {
   font-weight: bold;
 }
 
-// Item Detail Pages (Art, Books, Cards, Typewriters)
+// Typewriter Item Template
 .item-details {
   height: 100%;
   padding: 0 .25rem;
@@ -849,10 +846,10 @@ p {
     }
     @media (min-width: 640px) { // UIkit grid breakpoint to 2 gallery columns
       flex-direction: row;
-      font-size: 2.2rem;
+      font-size: 2.3rem;
     }
     @media (min-width: 960px) {
-      font-size: 2.5rem;
+      font-size: 2.6rem;
     }
   }
   .details-container {
@@ -916,20 +913,32 @@ p {
       .details {
         padding: 0;
         h2 {
+          margin: 0 0 10px 0;
           font-size: 1.4rem;
           line-height: 1.1;
           @media (min-width: 360px) { // iPhone 12, most Androids
             font-size: 1.5rem;
           }
           @media (min-width: 412px) {
-            font-size: 1.7rem;
+            font-size: 1.6rem;
           }
-          &.padded-header {
-            padding-top: 3rem;
+          @media (min-width: 640px) {
+            font-size: 1.7rem;
           }
         }
         h3 {
-          padding-top: 1rem;
+          margin: 0 0 20px 0;
+          font-size: 1.1rem;
+          font-weight: 500;
+          @media (min-width: 360px) { // iPhone 12, most Androids
+            font-size: 1rem;
+          }
+          @media (min-width: 412px) {
+            font-size: 1rem;
+          }
+          @media (min-width: 640px) {
+            font-size: 1.2rem;
+          }
         }
         p {
           margin: 0 0 .8rem 0;

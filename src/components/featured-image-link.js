@@ -1,5 +1,4 @@
 import React from 'react';
-import { getCreatorFullName } from "../utils/creator"
 import { getImageUrl } from "../utils/image-url"
 
 const FeaturedImagelink = ({ item }) => {
@@ -8,8 +7,8 @@ const FeaturedImagelink = ({ item }) => {
   // Use the primary image, the first of the images set
   const image_url = ( item.images[0] ? getImageUrl(item.images[0], "medium") : "" )
 
-  const alt_text = `${item.year} ${item.brand.slug} ${item.model.slug} serial number ${item.sn}`
-  const link = `/${item.brand.slug}/${item.model.slug}/${item.sn}/`
+  const alt_text = `${item.year} ${item.brand.name} ${item.model.name} serial number ${item.sn}`
+  const link = `/${item.year}-${item.brand.slug}-${item.model.slug}-${item.sn}/`
 
   return (
     <div className="img-hover-zoom">
