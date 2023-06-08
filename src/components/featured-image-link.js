@@ -5,7 +5,7 @@ const FeaturedImagelink = ({ item }) => {
   //console.log("FeaturedImagelink item", item)
 
   // Use the primary image, the first of the images set
-  const image_url = ( item.images[0] ? getImageUrl(item.images[0], "medium") : "" )
+  const image_url = getImageUrl(item.images[0])
 
   const alt_text = `${item.year} ${item.brand.name} ${item.model.name} serial number ${item.sn}`
   const link = `/${item.year}-${item.brand.slug}-${item.model.slug}-${item.sn}/`

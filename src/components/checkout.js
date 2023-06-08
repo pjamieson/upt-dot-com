@@ -21,12 +21,8 @@ import { CartContext } from "../context/cart-context"
 import { cartSubtotal, cartSalesTax, cartShipping, cartTotal } from "../utils/cart"
 import { formatPrice } from "../utils/format"
 import {
-  getPaintingQtyAvailable,
-  setPaintingQtyAvailable,
-  getCardQtyAvailable,
-  setCardQtyAvailable,
-  getBookQtyAvailable,
-  setBookQtyAvailable
+  getTypewriterAvailable,
+  setTypewriterAvailable
 } from "../utils/inventory"
 import { getSalesTaxRate } from "../utils/salestax"
 
@@ -58,8 +54,9 @@ const CheckoutComponent = () => {
   const [error, setError] = useState(null)
   const [disabled, setDisabled] = useState(false)
   const [clientSecret, setClientSecret] = useState('')
+  const [gettingSecret, setGettingSecret] = useState(false)
 
-  const { cart, clearCart, addToCart } = useContext(CartContext)
+  const { cart, clearCart, removeFromCart } = useContext(CartContext)
 
   const [, updateState] = useState()
   const forceUpdate = useCallback(() => updateState({}), [])
@@ -97,7 +94,9 @@ const CheckoutComponent = () => {
   // Note: Australia, Netherlands postal codes are 4 digits - making that the min length
   const billing_valid = () => {
     if (bfirstname.length > 0 && blastname.length > 0 && baddress.length > 0 && bcity.length > 1 && bregion.length > 1 && bregion.length < 7 && bzip.length > 3 && bcountry.length === 2) {
-      if (clientSecret === '') {
+      if (!gettingSecret) {
+        setGettingSecret(true)
+        //console.log("billing_valid getPaymentIntent gettingSecret", gettingSecret)
         getPaymentIntent()
       }
       return true
@@ -112,45 +111,21 @@ const CheckoutComponent = () => {
   useEffect(() => {
     if (cart && cart.length > 0) {
       Promise.all(cart.map(async item => {
-        if (item.itemType === "painting") {
-          const qtyNowAvailable = await getPaintingQtyAvailable(item.id)
-          if (item.qty > qtyNowAvailable) {
+        if (item.itemType === "typewriter") {
+          const isAvailable = await getTypewriterAvailable(item.id)
+          if (!isAvailable) {
             setCartChanged(true)
-            addToCart(item, (qtyNowAvailable - item.qty)) // remove unavailable from cart
+            removeFromCart(item) // remove unavailable from cart
           }
-          // Update cart availability
-          item.qtyAvail = qtyNowAvailable
 
-          return qtyNowAvailable // forces block to complete before continuing
-        }
-        if (item.itemType === "tradingcard") {
-          const qtyNowAvailable = await getCardQtyAvailable(item.id)
-          if (item.qty > qtyNowAvailable) {
-            setCartChanged(true)
-            addToCart(item, (qtyNowAvailable - item.qty)) // remove unavailable from cart
-          }
-          // Update cart availability
-          item.qtyAvail = qtyNowAvailable
-
-          return qtyNowAvailable // forces block to complete before continuing
-        }
-        if (item.itemType === "book") {
-          const qtyNowAvailable = await getBookQtyAvailable(item.id)
-          if (item.qty > qtyNowAvailable) {
-            setCartChanged(true)
-            addToCart(item, (qtyNowAvailable - item.qty)) // remove unavailable from cart
-          }
-          // Update cart availability
-          item.qtyAvail = qtyNowAvailable
-
-          return qtyNowAvailable // forces block to complete before continuing
+          return isAvailable // forces block to complete before continuing
         }
       }))
     } else {
       // No cart or empty cart
       setCartChanged(true)
     }
-  }, [cart, addToCart])
+  }, [cart, removeFromCart])
 
   if (cartChanged && !succeeded) {
     navigate('/cart-changed/')
@@ -185,23 +160,25 @@ const CheckoutComponent = () => {
     }
     //console.log("getPaymentIntent taxRate", taxRate)
 
-    try {
-      const response = await fetch(`${process.env.GATSBY_STRAPI_API_URL}/orders/payment`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          salesTaxRate: taxRate,
-          country,
-          cart
+    if (clientSecret === '') {
+      try {
+        const response = await fetch(`${process.env.GATSBY_STRAPI_API_URL}/api/orders/payment`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            salesTaxRate: taxRate,
+            country,
+            cart
+          })
         })
-      })
-      const data = await response.json()
-      //console.log("checkout getPaymentIntent data", data)
-      setClientSecret(data.client_secret)
-    } catch (err) {
-      console.log('checkout getPaymentIntent err', err)
+        const data = await response.json()
+        //console.log("checkout getPaymentIntent data", data)
+        setClientSecret(data.client_secret)
+      } catch (err) {
+        console.log('checkout getPaymentIntent err', err)
+      }
     }
   }
 
@@ -224,18 +201,18 @@ const CheckoutComponent = () => {
     let items = [] // Will later be posted to Shippo
     if (cart && cart.length > 0) {
       await Promise.all(cart.map(async item => {
-        if (item.itemType === "painting") {
-          const qtyNowAvailable = await getPaintingQtyAvailable(item.id)
-          if (item.qty > qtyNowAvailable) {
+        if (item.itemType === "typewriter") {
+          const isAvailable = await getTypewriterAvailable(item.id)
+          if (!isAvailable) {
             processPayment = false
             setCartChanged(true)
-            addToCart(item, (qtyNowAvailable - item.qty)) // remove unavailable from cart
+            removeFromCart(item) // remove unavailable from cart
           }
           // Save item for Shippo
           items.push(
             {
               "currency": "USD",
-              "quantity": item.qty,
+              "quantity": 1,
               "sku": item.sku,
               "title": item.title,
               "total_amount": item.price,
@@ -243,59 +220,8 @@ const CheckoutComponent = () => {
               "weight_unit": "lb"
             }
           )
-          // Update cart availability
-          item.qtyAvail = qtyNowAvailable
 
-          return qtyNowAvailable // forces block to complete before continuing
-        }
-        if (item.itemType === "tradingcard") {
-          const qtyNowAvailable = await getCardQtyAvailable(item.id)
-          if (item.qty > qtyNowAvailable) {
-            processPayment = false
-            setCartChanged(true)
-            addToCart(item, (qtyNowAvailable - item.qty)) // remove unavailable from cart
-          }
-          // Save item for Shippo
-          const itemTotal = (item.qty * item.price)
-          items.push(
-            {
-              "currency": "USD",
-              "quantity": item.qty,
-              "sku": item.sku,
-              "title": item.title,
-              "total_price": itemTotal,
-              "weight": "0.5",
-              "weight_unit": "lb"
-            }
-          )
-          // Update cart availability
-          item.qtyAvail = qtyNowAvailable
-
-          return qtyNowAvailable // forces block to complete before continuing
-        }
-        if (item.itemType === "book") {
-          const qtyNowAvailable = await getBookQtyAvailable(item.id)
-          if (item.qty > qtyNowAvailable) {
-            processPayment = false
-            setCartChanged(true)
-            addToCart(item, (qtyNowAvailable - item.qty)) // remove unavailable from cart
-          }
-          // Save item for Shippo
-          items.push(
-            {
-              "currency": "USD",
-              "quantity": item.qty,
-              "sku": item.sku,
-              "title": item.title,
-              "total_amount": item.price,
-              "weight": "1.0",
-              "weight_unit": "lb"
-            }
-          )
-          // Update cart availability
-          item.qtyAvail = qtyNowAvailable
-
-          return qtyNowAvailable // forces block to complete before continuing
+          return isAvailable // forces block to complete before continuing
         }
       }))
     } else {
@@ -339,18 +265,12 @@ const CheckoutComponent = () => {
           setError(null)
           setSucceeded(true)
 
-          // Update availability/inventory in Strapi
+          // Update availability in Strapi
           try {
             if (cart && cart.length > 0) {
               cart.forEach(item => {
-                if (item.itemType === "painting") {
-                  setPaintingQtyAvailable(item.id, (item.qtyAvail - item.qty))
-                }
-                if (item.itemType === "tradingcard") {
-                  setCardQtyAvailable(item.id, (item.qtyAvail - item.qty))
-                }
-                if (item.itemType === "book") {
-                  setBookQtyAvailable(item.id, (item.qtyAvail - item.qty))
+                if (item.itemType === "typewriter") {
+                  setTypewriterAvailable(item.id, false)
                 }
               })
             }
@@ -358,26 +278,52 @@ const CheckoutComponent = () => {
             console.log("checkout update inventory error", error)
           }
 
+          const orderSubtotal = cartSubtotal(cart)
+          const orderDiscount = 0.00
+          const orderShipping = cartShipping(cart, country)
+          const orderSalesTax = cartSalesTax(cart, salesTaxRate)
+          const orderTotal = cartTotal(cart, salesTaxRate, country)
+
           // POST order and shipping address to Strapi
-          const order = {
-            salesTaxRate,
-            paymentIntent: paymentResult.paymentIntent,
-            firstname,
-            lastname,
-            address,
-            address2,
-            city,
-            state: region,
-            zip,
-            country,
-            email,
-            newsletter,
-            cart
+          const order_data = {
+            data: {
+              stripe_payment_id: paymentResult.paymentIntent,
+              cart,
+              subtotal: orderSubtotal,
+              discount: orderDiscount,
+              salestax: orderSalesTax,
+              shipping: orderShipping,
+              total: orderTotal,
+              firstname,
+              lastname,
+              address,
+              address2,
+              city,
+              state: region,
+              zip,
+              country,
+              email,
+              newsletter
+            }
           }
 
+          let order_response = ''
+          try {
+            order_response = await fetch(`${process.env.GATSBY_STRAPI_API_URL}/api/orders`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify(order_data)
+            })
+          } catch(error) {
+            console.log("checkout post order error", error)
+          }
+          console.log("checkout post order order_response", order_response)
+/*
           const addStrapiOrder = async () => {
             try {
-              const order_response = await fetch(`${process.env.GATSBY_STRAPI_API_URL}/orders`, {
+              const order_response = await fetch(`${process.env.GATSBY_STRAPI_API_URL}/api/orders`, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json"
@@ -390,13 +336,9 @@ const CheckoutComponent = () => {
             }
           }
           const order_data = await addStrapiOrder()
-          //console.log("order_data", order_data)
-
+          console.log("checkout order_data", order_data)
+*/
           // Also POST order & shipping address to Shippo
-          const orderSubtotal = cartSubtotal(cart)
-          const orderShipping = cartShipping(cart, country)
-          const orderSalesTax = cartSalesTax(cart, salesTaxRate)
-          const orderTotal = cartTotal(cart, salesTaxRate)
           const fullname = `${firstname} ${lastname}`
 
           const order_num = `A-6${order_data.order_id}`
@@ -429,7 +371,7 @@ const CheckoutComponent = () => {
           }
 
           try {
-            await fetch(`${process.env.GATSBY_STRAPI_API_URL}/orders/shipping`, {
+            await fetch(`${process.env.GATSBY_STRAPI_API_URL}/api/orders/shipping`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json"
@@ -443,12 +385,14 @@ const CheckoutComponent = () => {
           // Add to email list, if opted in
           if (newsletter) {
             const email_entry = {
-              firstname,
-              lastname,
-              email
+              data: {
+                firstname,
+                lastname,
+                email  
+              }
             }
             try {
-              fetch(`${process.env.GATSBY_STRAPI_API_URL}/emails`, {
+              fetch(`${process.env.GATSBY_STRAPI_API_URL}/api/emails`, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json"
@@ -817,13 +761,11 @@ const CheckoutComponent = () => {
                     return <div key={item.sku} className="item">
                       <div className="item-name">
                         <p key={item.sku}>
-                          {item.qty > 1 ? (item.qty + " - ") : null}
                           {item.title} - <span className='text-muted'>{item.subtitle}</span>
-                          {item.qty > 1 ? <span className='text-muted'> (@ ${item.price} each)</span> : null}
                         </p>
                       </div>
                       <div className="item-price">
-                        {formatPrice(item.price * item.qty)}
+                        {formatPrice(item.price)}
                       </div>
                     </div>
                   }

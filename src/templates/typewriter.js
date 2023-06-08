@@ -8,11 +8,11 @@ import { CartContext } from "../context/cart-context"
 
 import ImageSet from "../components/image-set"
 import Layout from "../components/layout"
-import Seo from "../components/seo"
+//import Seo from "../components/seo"
 
 import { formatPrice } from "../utils/format"
 import { getImageUrl } from "../utils/image-url"
-//import { getPaintingQtyAvailable } from "../utils/inventory"
+import { getTypewriterAvailable } from "../utils/inventory"
 
 const TypewriterPage = ({
   data: {
@@ -36,68 +36,92 @@ const TypewriterPage = ({
     },
   },
 }) => {
-  //const { isInCart, addToCart } = useContext(CartContext)
+  const { isInCart, addToCart, removeFromCart } = useContext(CartContext)
 
   const itemType = "typewriter"
   const title = `${year} ${brand.name} ${model.name} #${sn}`
-  const sku = `${brand.name}-${model.name}-${sn}`
-  const slug = `${brand.slug}/${model.slug}/${sn}/`
-  const creator = `${brand.name}`
-  const subt = subtitle ? subtitle : `A Vintage Typewriter`
-  const qty = 1 //initialize with 1 of item
-  const qtyAvail = 1
+  const sku = `${year}-${brand.name}-${model.name}-${sn}`
+  const slug = `${year}-${brand.slug}-${model.slug}-${sn}`
   const cartItem = {
     itemType,
     id,
     sku,
     slug,
-    creator,
     title,
-    subtitle: subt,
+    subtitle,
     imageUrl: getImageUrl(images[0], "small"),
-    qty,
-    qtyAvail,
     price
   }
 
-  /*
   const [inCart, setInCart] = useState(isInCart(cartItem))
   const [processing, setProcessing] = useState(false)
 
-  // On loading page, confirm painting is still available
-  const [qtyAvailNow, setQtyAvailNow] = useState(1) // one available by default
+  // On loading page, confirm typewriter is still available
+  const [availNow, setAvailNow] = useState(true) // available by default
   useEffect(() => {
     const fetchData = async () => {
       setProcessing(true)
-      setQtyAvailNow(await getPaintingQtyAvailable(id))
+      setAvailNow(await getTypewriterAvailable(id))
       setProcessing(false)
     }
     fetchData()
   }, [id])
 
-  if (qtyAvailNow === 0 && inCart) {
+  if (!availNow && inCart) {
     // remove from cart
-    addToCart(cartItem, -1)
+    removeFromCart(cartItem)
     setInCart(false)
   }
 
-  const prof = subgenres[0].name === "Haitian Art" ? "Haitian artist" : "artist"
-
   // Schema.org calculated values
-  const productTitle = (form === "Typewriter" ? title : `${creatorname} - ${title}`)
-  const seo_description = (form === "Typewriter" ? `Images and details about the ${title} typewriter from The Jamieson Collection` : `Images of and details about the original ${form} “${title}” by the ${prof} ${creatorname}`)
-
-  const productCategory = (form === "Typewriter" ? "Office Supplies > Office Equipment > Typewriters" : "Home & Garden > Decor > Artwork > Posters, Prints, & Visual Artwork")
-
-  const productDescription = (subtitle ? subtitle : `An original ${form} by ${creatorname}`)
-  const productUrl = `https://iartx.com/gallery/${slug}/`
+  const seo_brand = `${brand} ${model}`
+  const productCategory = "Office Supplies > Office Equipment > Typewriters" 
+  const productDescription = `${title} vintage typewriter. ${subtitle}.`
+  const productUrl = `https://ultraportabletypewriters.com/${slug}/`
   const productImageUrl = getImageUrl(images[0], "small")
-  const productAvailability = qtyAvailNow > 0 ? "http://schema.org/InStock" : "http://schema.org/OutOfStock"
-*/
+  const productAvailability = availNow ? "http://schema.org/InStock" : "http://schema.org/OutOfStock"
+
   return (
     <Layout>
       <Script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit.min.js" />
       <Script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit.min.js" />
+      <Script type="application/ld+json">
+        {`
+          {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "productID": "${sku}",
+            "sku": "${sku}",
+            "gtin": "",
+            "mpn": "",
+            "identifier_exists": "false",
+            "category": "${productCategory}",
+            "name": "${title}",
+            "description": "${productDescription}",
+            "url": "${productUrl}",
+            "image": [
+              "${productImageUrl}"
+            ],
+            "brand": {
+              "@type": "Brand",
+              "name": "${seo_brand}"
+            },
+            "logo": "https://iartx.com/icons/icon-72x72.png",
+            "offers": [
+              {
+                "@type": "Offer",
+                "url": "${productUrl}",
+                "price": "${price}",
+                "priceCurrency": "USD",
+                "priceValidUntil": "2023-10-31",
+                "itemCondition": "https://schema.org/UsedCondition",
+                "availability": "${productAvailability}"
+              }
+            ]
+          }
+        `}
+      </Script>
+
       <div className="page-container">
         <article className="item-details">
           <h1>{title}</h1>
@@ -145,32 +169,73 @@ const TypewriterPage = ({
                     <span><p><b>Weight:</b> {weight}</p></span>
                   </div>
                 }
+                { (color && color.length) &&
+                  <div>
+                    <span><p><b>Color:</b> {color}</p></span>
+                  </div>
+                }
                 { condition.data.condition &&
                   <div>
-                    <span><p>
-                      <b>Condition:</b> <ReactMarkdown children={condition.data.condition} />
-                    </p></span>
+                    <ReactMarkdown children={condition.data.condition} />
                   </div>
                 }
                 { description.data.description &&
-                  <span><p>
-                    <b>Details:</b> <ReactMarkdown children={description.data.description} />
-                  </p></span>
+                  <ReactMarkdown children={description.data.description} />
                 }
                 <p>------</p>
                 <p><em>Please note that we are painfully aware of the damage risks entailed when shipping a typewriter. web strive to ensure that your 'new' typewriter arrives at your doorstep in the same condition it leaves ours.</em></p>
                 <p><b>Packing and FedEx or UPS economy shipping of this typewriter is FREE to any street address within the continental United States.</b> Expedited shipping and shipping to locations outside the continental United States will be invoiced at our cost.</p>
-
+                { (processing) &&
+                  <h3>Confirming availability...</h3>
+                }
+                <div className="inventory-msg">
+                  { (!availNow) &&
+                    <>
+                      <br />
+                      <h3>Sorry, this typewriter is no longer available.</h3>
+                    </>
+                  }
+                </div>
               </div> {/* details */}
-              
-              <div className="price-action">
-                <h3 className="price">{formatPrice(price)}</h3>
-             </div> {/* price-action */}
+
+              { (availNow) &&
+                <div className="price-action">
+                  <br />
+                  <h3 className="price">{formatPrice(price)}</h3>
+                  <div>
+                    { (price > 200 && availNow && !inCart) &&
+                      <button type="button" className="btn btn-add-to-cart btn-primary btn-rounded" onClick={() => {
+                        addToCart(cartItem)
+                        setInCart(true)
+                        //window.gtag("event", "conversion", {
+                        //  send_to: [`${process.env.GATSBY_GOOGLE_ADS_ID}/Mc6uCNTLgdEDEMvG1c8D`]
+                        //})
+                      }}>
+                        <i className="fas fa-cart-plus"></i>Add to Cart
+                      </button>
+                    }
+                    { (inCart && availNow) &&
+                      <MDBBadge color="secondary">Added to Cart</MDBBadge>
+                    }
+                  </div>
+                  <div className="btn-inquire">
+                    <button type="button" className="btn btn-inquire btn-primary btn-rounded" onClick={() => {
+                      navigate('/inquire/', {
+                        state: {
+                          title,
+                          sku,
+                          image_src: images[0].formats.small.url
+                        }
+                      })
+                    }}>Inquire</button>
+                  </div>
+                </div>
+              }
+
             </div> {/* item-description */}
           </div> {/* details-container */}
         </article> {/* item-details */}
       </div> {/* page-container */}
-      */
     </Layout>
   )
 }
@@ -178,7 +243,7 @@ const TypewriterPage = ({
 export const query = graphql`
 query GetSingleTypewriter($id: String) {
   typewriter: strapiTypewriter(id: {eq: $id}) {
-    id
+    id: strapi_id
     year
     brand {
       name
@@ -232,7 +297,10 @@ query GetSingleTypewriter($id: String) {
 export const Head = ({ location, params, data, pageContext }) => (
   <>
     <title>{data.typewriter.year} {data.typewriter.brand.name} {data.typewriter.model.name} Typewriter #{data.typewriter.sn}</title>
-    <meta name="description" content="Bla bla typewriter ..." />
+    <meta
+      name="description"
+      content={`Images of and details about the ${data.typewriter.year} ${data.typewriter.brand.name} ${data.typewriter.model.name} vintage typewriter serial number ${data.typewriter.sn}`}
+    />
   </>
 )
 

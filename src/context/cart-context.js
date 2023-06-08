@@ -3,13 +3,14 @@ import { getCart, saveCart } from "../utils/cart"
 
 const defaultState = {
   isInCart: () => {},
-  addToCart: () => {}
+  addToCart: () => {},
+  removeFromCart: () => {},
 }
 // Fixes issue as described at https://github.com/gatsbyjs/gatsby/issues/19255
 
 export const CartContext = createContext(defaultState)
 
-export default ({children}) => {
+const CartFunctions = ({children}) => {
 
   const [cart, setCart] = useState(getCart)
 
@@ -20,7 +21,7 @@ export default ({children}) => {
     return indexOfItem !== -1 ? true : false
   }
 
-  const addToCart = (cartItem, qty = 1) => {
+  const addToCart = (cartItem) => {
     const cartCopy = [...cart]
 
     // Find sku in Cart
@@ -28,21 +29,25 @@ export default ({children}) => {
       item.sku === cartItem.sku
     )
 
-    if (indexOfItem !== -1 && cartCopy[indexOfItem].qty <= 0) {
-      // safety (saw values under 0 following fast qty component clicking)
-      cartCopy.splice(indexOfItem, 1)
-    } else if (indexOfItem !== -1) {
-      // Update qty
-      cartCopy[indexOfItem].qty += parseInt(qty)
-
-      if (cartCopy[indexOfItem].qty <= 0) {
-        // Remove item from cart
-        cartCopy.splice(indexOfItem, 1)
-      }
-    } else if (indexOfItem === -1) {
-      // New item
-      cartItem.qty = parseInt(qty)
+    if (indexOfItem === -1) {
+      // Not already there; New item
       cartCopy.push(cartItem)
+    }
+
+    updateCart(cartCopy)
+  }
+
+  const removeFromCart = (cartItem) => {
+    const cartCopy = [...cart]
+
+    // Find sku in Cart
+    const indexOfItem = cartCopy.findIndex(item =>
+      item.sku === cartItem.sku
+    )
+
+    if (indexOfItem !== -1) {
+      // Found it, now remove
+      cartCopy.splice(indexOfItem, 1)
     }
 
     updateCart(cartCopy)
@@ -59,8 +64,10 @@ export default ({children}) => {
   }
 
   return (
-    <CartContext.Provider value={{cart, isInCart, addToCart, clearCart}}>
+    <CartContext.Provider value={{cart, isInCart, addToCart, removeFromCart, clearCart}}>
       {children}
     </CartContext.Provider>
   )
 }
+
+export default CartFunctions

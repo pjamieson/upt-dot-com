@@ -15,7 +15,8 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
-    "@mdx-js/react": "^2.3.0",
+    "@stripe/react-stripe-js": "2.1.0",
+    "@stripe/stripe-js": "1.54.0",
     "gatsby": "^5.10.0",
     "gatsby-plugin-google-gtag": "^5.10.0",
     "gatsby-plugin-image": "^3.10.0",
@@ -29,6 +30,7 @@
     "gatsby-transformer-sharp": "^5.10.0",
     "mdb-react-ui-kit": "./mdb-react-ui-kit-3.0.0.tgz",
     "react": "^18.2.0",
+    "react-country-region-selector": "^3.4.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
     "react-markdown": "^8.0.7",

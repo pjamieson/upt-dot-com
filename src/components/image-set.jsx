@@ -1,5 +1,4 @@
 import React from "react"
-import { Script } from "gatsby"
 import { MDBLightbox, MDBLightboxItem } from "mdb-react-ui-kit"
 import { getImageUrl } from "../utils/image-url"
 
@@ -17,7 +16,6 @@ const ImageSet = ({ title, images }) => {
   let key = 0
   
   return ( <>
-    <Script src="./src/styles/uikit.min.js" />
     <section>
       { !two_up &&
         <img src={getImageUrl(images[0], "medium")} className="img-fluid card" alt={title} />

@@ -2,9 +2,9 @@ import * as React from "react"
 import { Script, graphql } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image"
 
-import { Seo } from "../components/seo"
+//import { Seo } from "../components/seo"
 import Layout from "../components/layout"
-import FeaturedImagelink from "../components/featured-image-link"
+import CardImageCaptionLink from "../components/card-image-caption-link"
 
 const IndexPage = ({data}) => {
   const {
@@ -17,7 +17,7 @@ const IndexPage = ({data}) => {
       <Script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit.min.js" />
       <div className="container site-container">
         <StaticImage
-          alt="Clifford, a reddish-brown pitbull, posing on a couch and looking stoically at the camera"
+          alt="A shelf with eleven ultraportable typewriters in their cases"
           src="../images/hero1.webp"
         />
         <div className="container front-content">
@@ -25,17 +25,17 @@ const IndexPage = ({data}) => {
           <section className="intro-content">
             <div className="image-container">
               <StaticImage
-                alt="Clifford, a reddish-brown pitbull, posing on a couch and looking stoically at the camera"
-                src="../images/1948 Gossen Tippa #6133 reardet2 1500.webp"
+                alt="A 1948 maroon color Gossen Tippa on a table beside its lid and leather breifcase"
+                src="../images/1948 Gossen Tippa #6133 main9 1600sq.webp"
               />
             </div>
-            <h2>A Curated Selection of Vintage Typewriters</h2>
-            <h3>Featuring Ultraportables and Portables from Gossen and Hermes</h3>
+            <h2>A Curated Selection<br />of Vintage Typewriters</h2>
+            <h3>Featuring Gossen and Hermes<br />Ultraportables and Portables</h3>
             <p className="dark-grey-text">
-              Every typewriter offered here currently resides on a desk, table or shelf in the Northern California home of Rebecca and Patrick Jamieson. We love typewriters, and have been using them for over 50 years. (Yes, we're old. So old that we grew up without mobile phones and personal computers.)
+              Every typewriter offered here currently resides on a desk, table or shelf in the Northern California home of Rebecca and Patrick Jamieson. We love typewriters, and have been using them for over 50 years. (Yes, we're old. So old that we grew up without mobile phones and personal computers. And <i>with</i> typewriters.)
             </p>
             <p className="dark-grey-text">
-              We've come to realize that--in order to continue to find and refresh typewriters--we have to let some go from our collection to make room for new-to-us arrilals. Our goal being to end up with a clean, working .
+              We've come to realize that—in order to continue to find and refresh typewriters—we have to let some from our collection go to make room for new-to-us arrivals. Our goal with each purchase being to end up with a clean, working machine.
             </p>
             <ul>
               <li>We're happy to answer questions and provide additional images.</li>
@@ -43,19 +43,19 @@ const IndexPage = ({data}) => {
               <li>Satisfaction guaranteed with returns accepted for any reason.</li>
             </ul>
             <p className="dark-grey-text">
-              Scroll down for a quick look at the typewriters we are offering for sale. Tap or click on an image to go directly to the Gallery Page that describes that typewriter in detail.
+              Scroll down for a quick look at the typewriters we are currently offering for sale. Tap or click on an image to go directly to the Details Page that describes that typewriter and provides more images of it.
             </p>
             <h4>Check back often.</h4>
             <h4>We frequently update our offerings.</h4>
           </section>
 
           <section className="gallery">
-            <div className="uk-grid-small uk-child-width-1-2@s uk-child-width-1-3@m uk-text-center" uk-grid="masonry: true">
+            <div className="uk-grid-small uk-child-width-1-2@s uk-child-width-1-3@m" uk-grid="masonry: true">
             {typewriters.map(typewriter => {
-              return <div key={typewriter.strapi_id}>
-                {typewriter.images && <FeaturedImagelink item={typewriter} />}
+              return <div key={typewriter.id}>
+              {typewriter.images && <CardImageCaptionLink item={typewriter} /> }
               </div>
-            })}
+          })}
             </div>
           </section>
 
@@ -70,6 +70,7 @@ export const query = graphql`
     allStrapiTypewriter(filter: {available: {eq: true}}) {
       nodes {
         id
+        subtitle
         brand {
           name
           slug
@@ -106,6 +107,10 @@ export const query = graphql`
 export const Head = ({ location, params, data, pageContext }) => (
   <>
     <title>Ultraportable Typewriters - Home</title>
+    <meta
+      name="description"
+      content="UltraportableTypewriters.com features a curated selection of working vintage typewriters. We specialize in Gossen Tippa, and Hermes Baby/Rocket ultraportable models."
+    />
   </>
 )
 

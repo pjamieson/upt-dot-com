@@ -20,7 +20,7 @@ export const getCart = () => {
 
 export const cartSubtotal = (cart) => {
   const subtotal = cart.reduce((counter, item) => {
-    return counter + item.price * item.qty
+    return counter + item.price
   }, 0)
 
   return subtotal

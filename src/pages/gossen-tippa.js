@@ -1,66 +1,43 @@
 import React from "react"
-import Layout from '../components/layout'
-import { Seo } from "../components/seo"
-/*
 import { graphql } from "gatsby"
 
 import { MDBCard, MDBCardBody } from "mdb-react-ui-kit"
 
-import Layout from "../../components/layout"
-import Seo from "../../components/seo"
-import CardImageCaptionLink from "../../components/card-image-caption-link"
+import Layout from "../components/layout"
+//import Seo from "../components/seo"
+import CardImageCaptionLink from "../components/card-image-caption-link"
 
-import tippa1 from "../../images/1949 Gossen Tippa 400.jpg"
-import tippa2a from "../../images/1952 Gossen Tippa 400.jpg"
-import tippa2b from "../../images/1953 Gossen Tippa 400.jpg"
-import tippa3 from "../../images/1953 Gossen Tippa B 400.jpg"
-import tippa4 from "../../images/Placeholder 400.png"
-import tippa5 from "../../images/1964 Adler Tippa 1 400.jpg"
-import tippa6 from "../../images/1968 Adler Tippa S 400.jpg"
-import tippa7 from "../../images/Placeholder 400.png"
-import tippa20 from "../../images/Tippa Hermes Det4 400.jpg"
-import tippa21 from "../../images/Tippa Hermes Top Full 400.jpg"
-import tippa22 from "../../images/Tippa Hermes Case Full1 400.jpg"
-import tippa23 from "../../images/Tippa Hermes Front1 400.jpg"
-import tippa24 from "../../images/Tippa Hermes Back2 400.jpg"
-import tippa25 from "../../images/Tippa Hermes Case Det1 400.jpg"
-import tippa26a from "../../images/1950 Gossen Tippa cn 400.png"
-import tippa26b from "../../images/1950 Gossen Tippa sn 400.png"
-import tippa26c from "../../images/1952 Gossen Tippa sn 400.jpg"
-import tippa28 from "../../images/Gossen Tippa Briefcase0 400.jpg"
-import tippa29 from "../../images/Gossen Tippa Briefcase1 400.jpg"
-import tippa30 from "../../images/GossenSuperPilot 400.jpg"
-*/
-const GossenPage = (/*{ data }*/) => {
-  return (
-    <Layout pageTitle="Gossen">
-      <main>
-        <h1>Gossen Tippa and Adler Tippa Typewriters</h1>
-        <div className="historical-text">
-          <h2>A Brief History of the Gossen Tippa Portable Typewriter Models, with a glance at Adler and Triumph Tippas</h2>
+import tippa1 from "../images/Gossen/1949 Gossen Tippa 400.jpg"
+import tippa2a from "../images/Gossen/1952 Gossen Tippa 400.jpg"
+import tippa2b from "../images/Gossen/1953 Gossen Tippa 400.jpg"
+import tippa3 from "../images/Gossen/1953 Gossen Tippa B 400.jpg"
+import tippa4 from "../images/Gossen/Placeholder 400.png"
+import tippa5 from "../images/Gossen/1964 Adler Tippa 1 400.jpg"
+import tippa6 from "../images/Gossen/1968 Adler Tippa S 400.jpg"
+import tippa7 from "../images/Gossen/1977 Adler Tippa S 400.webp"
+import tippa20 from "../images/Gossen/Tippa Hermes Det4 400.jpg"
+import tippa21 from "../images/Gossen/Tippa Hermes Top Full 400.jpg"
+import tippa22 from "../images/Gossen/Tippa Hermes Case Full1 400.jpg"
+import tippa23 from "../images/Gossen/Tippa Hermes Front1 400.jpg"
+import tippa24 from "../images/Gossen/Tippa Hermes Back2 400.jpg"
+import tippa25 from "../images/Gossen/Tippa Hermes Case Det1 400.jpg"
+import tippa26a from "../images/Gossen/1950 Gossen Tippa cn 400.png"
+import tippa26b from "../images/Gossen/1950 Gossen Tippa sn 400.png"
+import tippa26c from "../images/Gossen/1952 Gossen Tippa sn 400.jpg"
+import tippa28 from "../images/Gossen/Gossen Tippa Briefcase0 400.jpg"
+import tippa29 from "../images/Gossen/Gossen Tippa Briefcase1 400.jpg"
+import tippa30 from "../images/Gossen/GossenSuperPilot 400.jpg"
 
-          <p>The company P. Gossen & Co. K.-G was founded in Germany in 1919 by Paul Gossen, a 46-year-old engineer. The new firm set about manufacturing and selling electrical measuring instruments. An early product—called the <em>Millivoltmeter</em>—was the first device offered for measuring voltage in the millivolt range. The company was successful, and expanded through the 1920s and 1930s. However, from 1939 into 1945—during World War II—the company was required to dedicate themselves to the provision of electrical instruments needed by the German armed forces.</p>
-          
-          <p>Paul Gossen passed away during the war—in June 1942—and the company was inherited by his widow and children. Paul's son Hans Gossen, and his son-in-law, Karl Klarner, became the chief executives. In August 1945, the U.S. Group Control Council, Germany (USGCC) allowed the company to resume manufacturing its pre-war product line. Plans to expand into the production of typewriters were accelerated—if not initiated—at that time as well.</p>
-
-          <h3>1948 — Gossen Launches Their First Typewriter</h3>
-        </div>
-      </main>
-    </Layout>
-  )
-
-  /*
+const GossenPage = ({ data }) => {
   const {
-    allStrapiPainting: { nodes: paintings },
+    allStrapiTypewriter: { nodes: typewriters },
   } = data
-
-  const seo_description = "A brief history of Tippa ultraportable typewriter models manufactured from 1948 through 1984, covering Gossen Tippa, Adler Tippa, and Triumph Tippa."
+  //console.log("index.js typewriters", typewriters)
 
   return (
-    <Layout>
-      <Seo title="Gossen Tippa and Adler Tippa Typewriters" description={seo_description} />
+   <Layout>
       <div className="container page-container">
-        <h1>Gossen Typewriters - Tippa, Tippa B & Tippa Pilot</h1>
+        <h1>Gossen Tippa Typewriters</h1>
 
 <section className="brand-story">
   <div className="historical-images">
@@ -95,10 +72,12 @@ const GossenPage = (/*{ data }*/) => {
     <div className="image-container">
       <img className="card" src={tippa7} alt="1968 Adler Tippa S typewriter" />
     </div>
-    <p>1970s Ader or Triumph model</p>
+    <p>1977 Adler Tippa S</p>
   </div>
   <div className="historical-text">
-    <h2>A Brief History of the Gossen Tippa Portable Typewriter Models, with a glance at Adler and Triumph Tippas</h2>
+    <h2>A Brief History of the Gossen Tippa Ultraportable Typewriter</h2>
+
+    <p className="subhead">With a glance at Adler and Triumph Tippas</p>
 
     <p>The company P. Gossen & Co. K.-G was founded in Germany in 1919 by Paul Gossen, a 46-year-old engineer. The new firm set about manufacturing and selling electrical measuring instruments. An early product—called the <em>Millivoltmeter</em>—was the first device offered for measuring voltage in the millivolt range. The company was successful, and expanded through the 1920s and 1930s. However, from 1939 into 1945—during World War II—the company was required to dedicate themselves to the provision of electrical instruments needed by the German armed forces.</p>
     
@@ -273,7 +252,7 @@ const GossenPage = (/*{ data }*/) => {
 
 <section className="gallery">
           <h2 className="typewriter-gallery">Tippa Typewriters Offered for Purchase</h2>
-          { paintings.length === 0 &&
+          { typewriters.length === 0 &&
             <MDBCard className="na-card">
               <MDBCardBody>
                 <div>
@@ -282,11 +261,11 @@ const GossenPage = (/*{ data }*/) => {
               </MDBCardBody>
             </MDBCard>
           }
-          { paintings.length > 0 &&
+          { typewriters.length > 0 &&
             <div className="uk-grid-small uk-child-width-1-2@s uk-child-width-1-3@m" uk-grid="masonry: true">
-            {paintings.map(painting => {
-              return <div key={painting.sku}>
-                {painting.images && <CardImageCaptionLink item={painting} caption_format="Typewriter" /> }
+            {typewriters.map(typewriter => {
+              return <div key={typewriter.sku}>
+                {typewriter.images && <CardImageCaptionLink item={typewriter} /> }
                 </div>
               })}
             </div>
@@ -296,63 +275,54 @@ const GossenPage = (/*{ data }*/) => {
       </div>
     </Layout>
   )
-  */
 }
-/*
+
 export const query = graphql`
-{
-  allStrapiPainting(
-    filter: {
-      subgenres: {elemMatch: {slug: {eq: "gossen-typewriter"}}},
-      qty: {gt: 0}
-    },
-    sort: {
-      fields: order, order: ASC
-    }
-  ) {
-    nodes {
-      id: strapiId
-      sku
-      artist {
-        firstname
-        lastname
-        aka
-      }
-      title
-      images {
-        formats {
-          large {
-            url
-          }
-          medium {
-            url
-          }
-          small {
-            url
-          }
-          thumbnail {
-            url
-          }
+  {
+    allStrapiTypewriter(
+      filter: {model: {name: {eq: "Tippa"}}, available: {eq: true}}
+    ) {
+      nodes {
+        id
+        subtitle
+        brand {
+          name
+          slug
         }
-        height
-        width
-        url
+        model {
+          name
+          slug
+        }
+        year
+        sn
+        price
+        images {
+          formats {
+            large {
+              url
+            }
+            medium {
+              url
+            }
+            small {
+              url
+            }
+            thumbnail {
+              url
+            }
+          }
+          name
+        }
       }
-      price
-      subgenres {
-        slug
-      }
-      slug
     }
   }
-}
 `
-*/
 
-export default GossenPage
-
-export const Head = () => (
+export const Head = ({ location, params, data, pageContext }) => (
   <>
-    <Seo title="Gossen Tippa and Adler Tippa Typewriters" description="A brief history of Tippa typewriter models manufactured by Gossen, Alder, and Triumph." />
+    <title>Gossen Tippa and Adler Tippa Typewriters</title>
+    <meta name="description" content="A brief history of Tippa ultraportable typewriter models manufactured from 1948 through 1984, covering Gossen Tippa, Adler Tippa, and Triumph Tippa." />
   </>
 )
+
+export default GossenPage

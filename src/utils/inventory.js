@@ -1,76 +1,31 @@
-// Functions to get and set inventory availability
+// Functions to get and set a typerwriter's availability
 
-export const getPaintingQtyAvailable = async (id) => {
+export const getTypewriterAvailable = async (id) => {
   try {
-    const response = await fetch(`${process.env.GATSBY_STRAPI_API_URL}/paintings/${id}`)
-    const data = await response.json()
-    return (data.qty)
+    const response = await fetch(`${process.env.GATSBY_STRAPI_API_URL}/api/typewriters/${id}`)
+    const result = await response.json()
+    //console.log('getTypewriterAvailable data', result.data.attributes.available)
+    return (result.data.attributes.available)
   } catch (err) {
-    console.log('getPaintingQtyAvailable err', err)
+    console.log('getTypewriterAvailable err', err)
   }
   return 0
 }
 
-export const setPaintingQtyAvailable = async (id, qty) => {
+export const setTypewriterAvailable = async (id, available) => {
     try {
-      await fetch(`${process.env.GATSBY_STRAPI_API_URL}/paintings/${id}`, {
+      await fetch(`${process.env.GATSBY_STRAPI_API_URL}/api/typewriters/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json"
         },
-        body: `{"qty":${qty}}`
+        body: `{
+          "data": {
+            "available":${available}
+          }
+        }`
       })
     } catch (err) {
-      console.log("inventory setPaintingQtyAvailable err", err)
-    }
-}
-
-export const getCardQtyAvailable = async (id) => {
-  try {
-    const response = await fetch(`${process.env.GATSBY_STRAPI_API_URL}/tradingcards/${id}`)
-    const data = await response.json()
-    return (data.qty)
-  } catch (err) {
-    console.log('getCardQtyAvailable err', err)
-  }
-  return 0
-}
-
-export const setCardQtyAvailable = async (id, qty) => {
-    try {
-      await fetch(`${process.env.GATSBY_STRAPI_API_URL}/tradingcards/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: `{"qty":${qty}}`
-      })
-    } catch (err) {
-      console.log("inventory setCardQtyAvailable err", err)
-    }
-}
-
-export const getBookQtyAvailable = async (id) => {
-  try {
-    const response = await fetch(`${process.env.GATSBY_STRAPI_API_URL}/books/${id}`)
-    const data = await response.json()
-    return (data.qty)
-  } catch (err) {
-    console.log('getBookQtyAvailable err', err)
-  }
-  return 0
-}
-
-export const setBookQtyAvailable = async (id, qty) => {
-    try {
-      await fetch(`${process.env.GATSBY_STRAPI_API_URL}/books/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: `{"qty":${qty}}`
-      })
-    } catch (err) {
-      console.log("inventory setBookQtyAvailable err", err)
+      console.log("inventory setTypewriterAvailable err", err)
     }
 }

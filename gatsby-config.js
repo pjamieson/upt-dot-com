@@ -5,7 +5,13 @@ require("dotenv").config({
 const strapiConfig = {
   apiURL: process.env.GATSBY_STRAPI_API_URL,
   accessToken: process.env.GATSBY_STRAPI_TOKEN,
-  collectionTypes: ["brand", "model", "typewriter"],
+  collectionTypes: [
+    "brand",
+    "email",
+    "model",
+    "order",
+    "typewriter"
+  ],
   singleTypes: [],
   remoteFileHeaders: {
     /**

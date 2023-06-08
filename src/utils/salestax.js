@@ -2,7 +2,7 @@
 
 export const getSalesTaxRate = async (zip) => {
   try {
-    const response = await fetch(`${process.env.GATSBY_STRAPI_API_URL}/orders/salestax`, {
+    const response = await fetch(`${process.env.GATSBY_STRAPI_API_URL}/api/orders/salestax`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
