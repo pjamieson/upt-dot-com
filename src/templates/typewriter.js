@@ -74,7 +74,7 @@ const TypewriterPage = ({
   }
 
   // Schema.org calculated values
-  const seo_brand = `${brand} ${model}`
+  const seo_brand = `${brand.name} ${model.name}`
   const productCategory = "Office Supplies > Office Equipment > Typewriters" 
   const productDescription = `${title} vintage typewriter. ${subtitle}.`
   const productUrl = `https://ultraportabletypewriters.com/${slug}/`
@@ -115,7 +115,29 @@ const TypewriterPage = ({
                 "priceCurrency": "USD",
                 "priceValidUntil": "2023-10-31",
                 "itemCondition": "https://schema.org/UsedCondition",
-                "availability": "${productAvailability}"
+                "availability": "${productAvailability}",
+                "shippingDetails": {
+                  "@type": "OfferShippingDetails",
+                  "shippingRate": {
+                    "@type": "MonetaryAmount",
+                    "value": "0",
+                    "currency": "USD"
+                  },
+                  "shippingDestination": [
+                    {
+                      "@type": "DefinedRegion",
+                      "addressCountry": "US"
+                    }
+                  ]
+                },
+                "hasMerchantReturnPolicy": {
+                  "@type": "MerchantReturnPolicy",
+                  "applicableCountry": "US",
+                  "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                  "merchantReturnDays": 30,
+                  "returnMethod": "https://schema.org/ReturnByMail",
+                  "returnFees": "https://schema.org/FreeReturn"
+                }
               }
             ]
           }
