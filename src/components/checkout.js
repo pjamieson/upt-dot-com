@@ -265,150 +265,130 @@ const CheckoutComponent = () => {
           setError(null)
           setSucceeded(true)
 
-          // Update availability in Strapi
+          // Variables for Shippo (values determined by posting order to Strapi)
+          let orderNum = ''
+          let createdAt = ''
+
+          // Post validated order to Strapi
           try {
-            if (cart && cart.length > 0) {
-              cart.forEach(item => {
-                if (item.itemType === "typewriter") {
-                  setTypewriterAvailable(item.id, false)
-                }
-              })
-            }
-          } catch(error) {
-            console.log("checkout update inventory error", error)
-          }
-
-          const orderSubtotal = cartSubtotal(cart)
-          const orderDiscount = 0.00
-          const orderShipping = cartShipping(cart, country)
-          const orderSalesTax = cartSalesTax(cart, salesTaxRate)
-          const orderTotal = cartTotal(cart, salesTaxRate, country)
-
-          // POST order and shipping address to Strapi
-          const order_data = {
-            data: {
-              stripe_payment_id: paymentResult.paymentIntent,
-              cart,
-              subtotal: orderSubtotal,
-              discount: orderDiscount,
-              salestax: orderSalesTax,
-              shipping: orderShipping,
-              total: orderTotal,
-              firstname,
-              lastname,
-              address,
-              address2,
-              city,
-              state: region,
-              zip,
-              country,
-              email,
-              newsletter
-            }
-          }
-
-          let order_response = ''
-          try {
-            order_response = await fetch(`${process.env.GATSBY_STRAPI_API_URL}/api/orders`, {
+            const response2 = await fetch(`${process.env.GATSBY_STRAPI_API_URL}/api/orders/validate`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json"
               },
-              body: JSON.stringify(order_data)
+              body: JSON.stringify({
+                salesTaxRate,
+                paymentIntent: paymentResult.paymentIntent,
+                firstname,
+                lastname,
+                address,
+                address2,
+                city,
+                state: region,
+                zip,
+                country,
+                email,
+                newsletter,
+                cart
+              })
             })
+            const data2 = await response2.json()
+            //console.log("validateOrder data2", data2) OK
+            orderNum = data2.order_id
+            createdAt = data2.order_createdAt
           } catch(error) {
             console.log("checkout post order error", error)
           }
-          console.log("checkout post order order_response", order_response)
-/*
-          const addStrapiOrder = async () => {
+
+            // Update availability in Strapi Typewriter
             try {
-              const order_response = await fetch(`${process.env.GATSBY_STRAPI_API_URL}/api/orders`, {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json"
-                },
-                body: JSON.stringify(order)
-              })
-              return await order_response.json()
-            } catch(error) {
-              console.log("checkout post order error", error)
-            }
-          }
-          const order_data = await addStrapiOrder()
-          console.log("checkout order_data", order_data)
-*/
-          // Also POST order & shipping address to Shippo
-          const fullname = `${firstname} ${lastname}`
-
-          const order_num = `A-6${order_data.order_id}`
-
-          const shipment = {
-            "to_address": {
-              "name": fullname,
-              "street1": address,
-              "street2": address2,
-              "city": city,
-              "state": region,
-              "zip": zip,
-              "country": country,
-              "email": email
-            },
-            "line_items": items,
-            "order_number": order_num,
-            "order_status": "PAID",
-            "placed_at": order_data.order_created,
-            "shipping_cost": orderShipping,
-            "shipping_cost_currency": "USD",
-            "shipping_method": "USPS First Class Package",
-            "shop_app": "Shippo",
-            "subtotal_price": orderSubtotal,
-            "total_price": orderTotal,
-            "total_tax": orderSalesTax,
-            "currency": "USD",
-            "weight": ".5",
-            "weight_unit": "lb"
-          }
-
-          try {
-            await fetch(`${process.env.GATSBY_STRAPI_API_URL}/api/orders/shipping`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify(shipment)
-            })
-          } catch (err) {
-            console.log("checkout post shippo error", err)
-          }
-
-          // Add to email list, if opted in
-          if (newsletter) {
-            const email_entry = {
-              data: {
-                firstname,
-                lastname,
-                email  
+              if (cart && cart.length > 0) {
+                cart.forEach(item => {
+                  if (item.itemType === "typewriter") {
+                    setTypewriterAvailable(item.id, false)
+                  }
+                })
               }
+            } catch(error) {
+              console.log("checkout update inventory error", error)
             }
+
+            // Also POST order & shipping address to Shippo
+            const orderSubtotal = cartSubtotal(cart)
+            const orderShipping = cartShipping(cart, country)
+            const orderSalesTax = cartSalesTax(cart, salesTaxRate)
+            const orderTotal = cartTotal(cart, salesTaxRate, country)
+
+            const fullname = `${firstname} ${lastname}`
+
+            const order_num = `U-${orderNum}`
+
+            const shipment = {
+              "to_address": {
+                "name": fullname,
+                "street1": address,
+                "street2": address2,
+                "city": city,
+                "state": region,
+                "zip": zip,
+                "country": country,
+                "email": email
+              },
+              "line_items": items,
+              "order_number": order_num,
+              "order_status": "PAID",
+              "placed_at": createdAt,
+              "shipping_cost": orderShipping,
+              "shipping_cost_currency": "USD",
+              "shipping_method": "USP Ground",
+              "shop_app": "Shippo",
+              "subtotal_price": orderSubtotal,
+              "total_price": orderTotal,
+              "total_tax": orderSalesTax,
+              "currency": "USD",
+              "weight": "240",
+              "weight_unit": "oz"
+            }
+
             try {
-              fetch(`${process.env.GATSBY_STRAPI_API_URL}/api/emails`, {
+              await fetch(`${process.env.GATSBY_STRAPI_API_URL}/api/orders/shipping`, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json"
                 },
-                body: JSON.stringify(email_entry)
+                body: JSON.stringify(shipment)
               })
-            } catch(error) {
-              console.log("checkout post email error", error)
+            } catch (err) {
+              console.log("checkout post shippo error", err)
             }
-          } // end newsletter
 
-          // Remove now-purchased items from cart
-          clearCart()
+            // Add to email list, if opted in
+            if (newsletter) {
+              const email_entry = {
+                data: {
+                  firstname,
+                  lastname,
+                  email  
+                }
+              }
+              try {
+                fetch(`${process.env.GATSBY_STRAPI_API_URL}/api/emails`, {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify(email_entry)
+                })
+              } catch(error) {
+                console.log("checkout post email error", error)
+              }
+            } // end newsletter
 
-          processingSucceeded = true
-        }
+            // Remove now-purchased items from cart
+            clearCart()
+
+            processingSucceeded = true
+          }
       }
       setProcessing(false)
 

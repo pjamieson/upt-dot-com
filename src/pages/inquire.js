@@ -4,7 +4,6 @@ import { navigate } from "gatsby"
 import { MDBBtn, MDBCard, MDBCol, MDBContainer, MDBInput, MDBRow, MDBTextArea } from "mdb-react-ui-kit";
 
 import Layout from "../components/layout"
-import Seo from "../components/seo"
 
 const InquirePage = ({ location }) => {
   const title = (location && location.state && location.state.title) ? location.state.title : ''
@@ -31,7 +30,7 @@ const InquirePage = ({ location }) => {
   useEffect(() => {
     const getSecureToken = async () => {
       try {
-        const response = await fetch(`${process.env.GATSBY_STRAPI_API_URL}/auth/local`, {
+        const response = await fetch(`${process.env.GATSBY_STRAPI_API_URL}/api/auth/local`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -57,7 +56,7 @@ const InquirePage = ({ location }) => {
 
     const sendEmail = async () => {
       try {
-        await fetch(`${process.env.GATSBY_STRAPI_API_URL}/email`, {
+        await fetch(`${process.env.GATSBY_STRAPI_API_URL}/api/email`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -68,7 +67,7 @@ const InquirePage = ({ location }) => {
               {
                 "to": [
                   {
-                    "email": "patrick@iartx.com",
+                    "email": "patrick@ultraportabletypewriters.com",
                     "name": "Patrick Jamieson"
                   }
                 ],
@@ -82,8 +81,8 @@ const InquirePage = ({ location }) => {
                }
              ],
              "from": {
-               "email": "patrick@iartx.com",
-               "name": "iArtX Item Inquiry"
+               "email": "patrick@ultraportabletypewriters.com",
+               "name": "UltraportableTypewriters.com Item Inquiry"
              },
              "reply_to": {
                "email": `${email}`,
@@ -104,7 +103,6 @@ const InquirePage = ({ location }) => {
 
   return (
     <Layout>
-      <Seo title="Inquire" />
       <MDBContainer className="page-container inquire">
         <h1 className="page-head">Inquire</h1>
 
@@ -198,5 +196,12 @@ const InquirePage = ({ location }) => {
     </Layout>
   )
 }
+
+export const Head = ({ location, params, data, pageContext }) => (
+  <>
+    <title>Inquire</title>
+    <meta name="robots" content="noindex" />
+  </>
+)
 
 export default InquirePage

@@ -37,4 +37,11 @@ const CheckoutPage = () => {
   )
 }
 
+export const Head = ({ location, params, data, pageContext }) => (
+  <>
+    <title>Checkout</title>
+    <meta name="robots" content="noindex" />
+  </>
+)
+
 export default CheckoutPage;

@@ -1,17 +1,12 @@
 import React, { useContext } from 'react';
-
 import { MDBCard, MDBCardBody } from "mdb-react-ui-kit"
-
 import { CartContext } from "../context/cart-context"
-
 import Layout from "../components/layout"
-import Seo from "../components/seo"
 
 const CartChangedPage = ({ location }) => {
   const { cart } = useContext(CartContext)
   return (
     <Layout>
-      <Seo title="Cart Changed" />
         <div className="container page-container success">
           <h1 className="page-head">Cart Changed</h1>
           <MDBCard>
@@ -38,5 +33,12 @@ const CartChangedPage = ({ location }) => {
     </Layout>
   )
 }
+
+export const Head = ({ location, params, data, pageContext }) => (
+  <>
+    <title>Cart Changed</title>
+    <meta name="robots" content="noindex" />
+  </>
+)
 
 export default CartChangedPage;

@@ -1,16 +1,12 @@
-import React from 'react';
-
-import { MDBCard, MDBCardBody } from "mdb-react-ui-kit"
+import React from 'react';import { MDBCard, MDBCardBody } from "mdb-react-ui-kit"
 
 import Layout from "../components/layout"
-import Seo from "../components/seo"
 
 const SuccessPage = ({ location }) => {
   const firstname = (location && location.state && location.state.firstname) ? location.state.firstname : ''
 
   return (
     <Layout>
-      <Seo title="Order Processed" />
         <div className="container page-container success">
           <h1 className="page-head">Order Processed</h1>
           <MDBCard>
@@ -30,5 +26,12 @@ const SuccessPage = ({ location }) => {
     </Layout>
   )
 }
+
+export const Head = ({ location, params, data, pageContext }) => (
+  <>
+    <title>Order Precessed</title>
+    <meta name="robots" content="noindex" />
+  </>
+)
 
 export default SuccessPage;

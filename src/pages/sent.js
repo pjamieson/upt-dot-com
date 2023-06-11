@@ -3,14 +3,12 @@ import React from 'react';
 import { MDBCard, MDBCardBody } from "mdb-react-ui-kit"
 
 import Layout from "../components/layout"
-import Seo from "../components/seo"
 
 const MessageSentPage = ({ location }) => {
   const subject = (location && location.state && location.state.subject) ? location.state.subject : ''
 
   return (
     <Layout>
-      <Seo title="Message Sent" />
         <div className="container page-container success">
           <h1 className="page-head">Message Sent</h1>
           <MDBCard>
@@ -27,5 +25,12 @@ const MessageSentPage = ({ location }) => {
     </Layout>
   )
 }
+
+export const Head = ({ location, params, data, pageContext }) => (
+  <>
+    <title>Message Sent</title>
+    <meta name="robots" content="noindex" />
+  </>
+)
 
 export default MessageSentPage;

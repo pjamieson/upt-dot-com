@@ -13,7 +13,6 @@ import {
 } from "mdb-react-ui-kit";
 
 import Layout from "../../components/layout"
-import Seo from "../../components/seo"
 
 const ContactPage = () => {
 
@@ -35,7 +34,7 @@ const ContactPage = () => {
   useEffect(() => {
     const getSecureToken = async () => {
       try {
-        const response = await fetch(`${process.env.GATSBY_STRAPI_API_URL}/auth/local`, {
+        const response = await fetch(`${process.env.GATSBY_STRAPI_API_URL}/api/auth/local`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -61,7 +60,7 @@ const ContactPage = () => {
 
     const sendEmail = async () => {
       try {
-        await fetch(`${process.env.GATSBY_STRAPI_API_URL}/email`, {
+        await fetch(`${process.env.GATSBY_STRAPI_API_URL}/api/email`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -72,7 +71,7 @@ const ContactPage = () => {
               {
                 "to": [
                   {
-                    "email": "patrick@iartx.com",
+                    "email": "patrick@ultraportabletypewriters.com",
                     "name": "Patrick Jamieson"
                   }
                 ],
@@ -86,8 +85,8 @@ const ContactPage = () => {
                }
              ],
              "from": {
-               "email": "patrick@iartx.com",
-               "name": "iArtX Contact Page"
+               "email": "patrick@ultraportabletypewriters.com",
+               "name": "UltraportableTypewriters.com Contact Page"
              },
              "reply_to": {
                "email": `${email}`,
@@ -108,7 +107,6 @@ const ContactPage = () => {
 
   return (
   <Layout>
-    <Seo title="Contact Us" />
     <MDBContainer className="page-container contact">
       <h1 className="page-head">Contact Us</h1>
 
@@ -184,7 +182,7 @@ const ContactPage = () => {
               <div className="btn-floating">
                 <MDBIcon icon="envelope" />
               </div>
-              <p className="contact-info">patrick@iartx.com</p>
+              <p className="contact-info">CustomerService@ ultraportabletypewriters.com</p>
             </li>
           </ul>
           </MDBCard>
@@ -196,4 +194,13 @@ const ContactPage = () => {
 )
 }
 
+export const Head = ({ location, params, data, pageContext }) => (
+  <>
+    <title>Contact Us</title>
+    <meta
+      name="description"
+      content="Form for contacting Customer Service at UltraportableTypewriters.com."
+    />
+  </>
+)
 export default ContactPage

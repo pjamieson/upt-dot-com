@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useCallback, useContext } from 'react';
 import { Link, navigate } from "gatsby"
-
 import { CartContext } from "../context/cart-context"
-
 import Layout from "../components/layout"
 
 import {
@@ -137,5 +135,12 @@ const CartPage = () => {
     </Layout>
   )
 }
+
+export const Head = ({ location, params, data, pageContext }) => (
+  <>
+    <title>Cart</title>
+    <meta name="robots" content="noindex" />
+  </>
+)
 
 export default CartPage;
