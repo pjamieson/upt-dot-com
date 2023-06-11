@@ -67,7 +67,10 @@ const IndexPage = ({data}) => {
 
 export const query = graphql`
   {
-    allStrapiTypewriter(filter: {available: {eq: true}}) {
+    allStrapiTypewriter(
+      sort: {order: ASC}
+      filter: {available: {eq: true}}
+    ) {
       nodes {
         id
         subtitle

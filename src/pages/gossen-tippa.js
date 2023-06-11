@@ -280,7 +280,8 @@ const GossenPage = ({ data }) => {
 export const query = graphql`
   {
     allStrapiTypewriter(
-      filter: {model: {name: {eq: "Tippa"}}, available: {eq: true}}
+      sort: {order: ASC}
+      filter: {model: {name: {in: "Tippa"}}, available: {eq: true}}
     ) {
       nodes {
         id

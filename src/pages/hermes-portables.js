@@ -157,6 +157,7 @@ const HermesPortablesPage = ({ data }) => {
 export const query = graphql`
   {
     allStrapiTypewriter(
+      sort: {order: ASC}
       filter: {brand: {name: {eq: "Hermes"}}, available: {eq: true}}
     ) {
       nodes {
