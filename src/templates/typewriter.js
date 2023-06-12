@@ -40,7 +40,7 @@ const TypewriterPage = ({
 
   const itemType = "typewriter"
   const title = `${year} ${brand.name} ${model.name} #${sn}`
-  const sku = `${year}-${brand.name}-${model.name}-${sn}`
+  const sku = `${year}-${brand.slug}-${model.slug}-${sn}`
   const slug = `${year}-${brand.slug}-${model.slug}-${sn}`
   const cartItem = {
     itemType,
@@ -129,6 +129,21 @@ const TypewriterPage = ({
                       "addressCountry": "US"
                     }
                   ]
+                  "deliveryTime": {
+                    "@type": "ShippingDeliveryTime",
+                    "handlingTime": {
+                      "@type": "QuantitativeValue",
+                      "minValue": 0,
+                      "maxValue": 1,
+                      "unitCode": "DAY"
+                    },
+                    "transitTime": {
+                      "@type": "QuantitativeValue",
+                      "minValue": 1,
+                      "maxValue": 10,
+                      "unitCode": "DAY"
+                    }
+                  }
                 },
                 "hasMerchantReturnPolicy": {
                   "@type": "MerchantReturnPolicy",
