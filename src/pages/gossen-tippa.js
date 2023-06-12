@@ -281,7 +281,7 @@ export const query = graphql`
   {
     allStrapiTypewriter(
       sort: {order: ASC}
-      filter: {model: {name: {in: "Tippa"}}, available: {eq: true}}
+      filter: {model: {name: {glob: "*Tippa*"}}, available: {eq: true}}
     ) {
       nodes {
         id
