@@ -128,7 +128,7 @@ const TypewriterPage = ({
                       "@type": "DefinedRegion",
                       "addressCountry": "US"
                     }
-                  ]
+                  ],
                   "deliveryTime": {
                     "@type": "ShippingDeliveryTime",
                     "handlingTime": {
