@@ -220,7 +220,7 @@ const TypewriterPage = ({
                   <ReactMarkdown children={description.data.description} />
                 }
                 <p>------</p>
-                <p><em>Please note that we are painfully aware of the damage risks entailed when shipping a typewriter. web strive to ensure that your 'new' typewriter arrives at your doorstep in the same condition it leaves ours.</em></p>
+                <p><em>Please note that we are painfully aware of the damage risks entailed when shipping a typewriter. We strive to ensure that your "new" typewriter arrives at your doorstep in the same condition it leaves ours.</em></p>
                 <p><b>Packing and FedEx or UPS economy shipping of this typewriter is FREE to any street address within the continental United States.</b> Expedited shipping and shipping to locations outside the continental United States will be invoiced at our cost.</p>
                 { (processing) &&
                   <h3>Confirming availability...</h3>
