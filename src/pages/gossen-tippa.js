@@ -165,7 +165,7 @@ const GossenPage = ({ data }) => {
 
     <p className="source"><b>Messenger, Robert</b>. <em><a href="https://oztypewriter.blogspot.com/2012/01/gossen-tippa-mighty-mouse-of.html" target="_blank" rel="noopener noreferrer">The Gossen Tippa: The Mighty Mouse of Typewriters</a>.</em> Blog post dated 07 Jan 2012. Retrieved 03 Apr 2023. [This is the best discussion and comparison  of the various Tippa models that we have seen.]</p>
 
-    <p className="source"><b>Munk, Theodore</b>. <em><a href="https://munk.org/typecast/2015/12/26/gossen-tippa-serials-updated/" target="_blank" rel="noopener noreferrer">Gossen Tippa Serials Updated!</a>.</em> Blog post dated 26 Dec 2015. Retrieved 05 Apr 2023. [Munk announces refinements to the TWDB Tippa serial number pages, and pointes out that Adler simply continued their numbering from where Gossen stopped.]</p>
+    <p className="source"><b>Munk, Theodore</b>. <em><a href="https://munk.org/typecast/2015/12/26/gossen-tippa-serials-updated/" target="_blank" rel="noopener noreferrer">Gossen Tippa Serials Updated!</a>.</em> Blog post dated 26 Dec 2015. Retrieved 05 Apr 2023. [Munk announces refinements to the TWDB Tippa serial number pages, and points out that Adler simply continued their numbering from where Gossen stopped.]</p>
 
     <p className="source"><b>Polt, Richard.</b> <em>The Typewriter Revolution: A Typist's Companion for the 21st Century</em>. Woodstock, VT: The Countryman Press [2015]. Page 106, including a photo of a Gossen Tippa Pilot.</p>
 
