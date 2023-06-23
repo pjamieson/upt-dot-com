@@ -198,6 +198,7 @@ export const query = graphql`
 
 export const Head = ({ location, params, data, pageContext }) => (
   <>
+    <link rel="icon" type="image/png" href="../images/icon.png"></link>
     <title>Hermes Portable Typewriters</title>
     <meta name="description" content="A brief history of Hermes portable typewriter models manufactured from the 1930s through the 1970s, covering Hermes 2000, 3000, Featherweight, Baby and Rocket." />
   </>

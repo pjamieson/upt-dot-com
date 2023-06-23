@@ -109,6 +109,7 @@ export const query = graphql`
 
 export const Head = ({ location, params, data, pageContext }) => (
   <>
+    <link rel="icon" type="image/png" href="../images/icon.png"></link>
     <title>Ultraportable Typewriters - Home</title>
     <meta
       name="description"

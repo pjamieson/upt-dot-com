@@ -321,6 +321,7 @@ export const query = graphql`
 
 export const Head = ({ location, params, data, pageContext }) => (
   <>
+    <link rel="icon" type="image/png" href="../images/icon.png"></link>
     <title>Gossen Tippa and Adler Tippa Typewriters</title>
     <meta name="description" content="A brief history of Tippa ultraportable typewriter models manufactured from 1948 through 1984, covering Gossen Tippa, Adler Tippa, and Triumph Tippa." />
   </>

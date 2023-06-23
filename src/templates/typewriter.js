@@ -333,6 +333,7 @@ query GetSingleTypewriter($id: String) {
 
 export const Head = ({ location, params, data, pageContext }) => (
   <>
+    <link rel="icon" type="image/png" href="../images/icon.png"></link>
     <title>{data.typewriter.year} {data.typewriter.brand.name} {data.typewriter.model.name} Typewriter #{data.typewriter.sn}</title>
     <meta
       name="description"
