@@ -106,7 +106,7 @@ const TypewriterPage = ({
               "@type": "Brand",
               "name": "${seo_brand}"
             },
-            "logo": "https://iartx.com/icons/icon-72x72.png",
+            "logo": "https://ultraportabletypewriters.com/icons/icon-72x72.png",
             "offers": [
               {
                 "@type": "Offer",
