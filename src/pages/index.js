@@ -26,7 +26,7 @@ const IndexPage = ({data}) => {
             <div className="image-container">
               <StaticImage
                 alt="A 1948 maroon color Gossen Tippa on a table beside its lid and leather breifcase"
-                src="../images/1948 Gossen Tippa #6133 main9 1600sq.webp"
+                src="../images/1948 Gossen Tippa 1600sq.webp"
               />
             </div>
             <h2>A Curated Selection<br />of Vintage Typewriters</h2>
