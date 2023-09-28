@@ -76,6 +76,13 @@ module.exports = {
       options: strapiConfig,
     },
     {
+      resolve: `gatsby-plugin-styled-components`,
+      // removes flicker on image load w/server-side rendering support
+      options: {
+        // Add any options here
+      },
+    },
+    {
       resolve: 'gatsby-source-filesystem',
       options: {
         "name": "images",
