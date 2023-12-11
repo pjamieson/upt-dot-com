@@ -72,10 +72,6 @@ module.exports = {
     "gatsby-plugin-sharp",
     "gatsby-plugin-sitemap",
     {
-      resolve: `gatsby-source-strapi`,
-      options: strapiConfig,
-    },
-    {
       resolve: `gatsby-plugin-styled-components`,
       // removes flicker on image load w/server-side rendering support
       options: {
@@ -97,6 +93,10 @@ module.exports = {
         "path": "./src/pages/"
       },
       __key: "pages"
+    },
+    {
+      resolve: `gatsby-source-strapi`,
+      options: strapiConfig,
     },
     "gatsby-transformer-sharp"
   ]

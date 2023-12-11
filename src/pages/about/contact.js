@@ -146,7 +146,7 @@ const ContactPage = () => {
             <MDBRow>
               <MDBCol md="12">
                 <div className="md-form mb-0">
-                  <MDBTextArea id="contact-message" label="Your message*" value={message} className="mt-4" rows={4} required onChange={(event) => setMessage(event.target.value)}
+                  <MDBTextArea id="contact-message" label="Your message*" value={message} className="mt-4" rows={5} required onChange={(event) => setMessage(event.target.value)}
                   />
                 </div>
               </MDBCol>
@@ -175,14 +175,14 @@ const ContactPage = () => {
               <div className="btn-floating">
                 <MDBIcon icon="phone" />
               </div>
-              <p className="contact-info">1.415.897.8145</p>
+              <p className="contact-info">1.415.246.0406</p>
             </li>
             }
             <li>
               <div className="btn-floating">
                 <MDBIcon icon="envelope" />
               </div>
-              <p className="contact-info">CustomerService@ ultraportabletypewriters.com</p>
+              <p className="contact-info">patrick@ ultraportabletypewriters.com</p>
             </li>
           </ul>
           </MDBCard>
