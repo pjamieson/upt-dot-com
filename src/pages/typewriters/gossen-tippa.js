@@ -3,31 +3,30 @@ import { graphql } from "gatsby"
 
 import { MDBCard, MDBCardBody } from "mdb-react-ui-kit"
 
-import Layout from "../components/layout"
-//import Seo from "../components/seo"
-import CardImageCaptionLink from "../components/card-image-caption-link"
+import Layout from "../../components/layout"
+import CardImageCaptionLink from "../../components/card-image-caption-link"
 
-import tippa0 from "../images/Gossen/1948 Gossen Tippa 400.webp"
-import tippa1 from "../images/Gossen/1949 Gossen Tippa 400.jpg"
-import tippa2a from "../images/Gossen/1952 Gossen Tippa 400.jpg"
-import tippa2b from "../images/Gossen/1953 Gossen Tippa 400.jpg"
-import tippa3 from "../images/Gossen/1953 Gossen Tippa B 400.jpg"
-import tippa4 from "../images/Gossen/Placeholder 400.png"
-import tippa5 from "../images/Gossen/1964 Adler Tippa 1 400.jpg"
-import tippa6 from "../images/Gossen/1968 Adler Tippa S 400.jpg"
-import tippa7 from "../images/Gossen/1977 Adler Tippa S 400.webp"
-import tippa20 from "../images/Gossen/Tippa Hermes Det4 400.jpg"
-import tippa21 from "../images/Gossen/Tippa Hermes Top Full 400.jpg"
-import tippa22 from "../images/Gossen/Tippa Hermes Case Full1 400.jpg"
-import tippa23 from "../images/Gossen/Tippa Hermes Front1 400.jpg"
-import tippa24 from "../images/Gossen/Tippa Hermes Back2 400.jpg"
-import tippa25 from "../images/Gossen/Tippa Hermes Case Det1 400.jpg"
-import tippa26a from "../images/Gossen/1950 Gossen Tippa cn 400.png"
-import tippa26b from "../images/Gossen/1950 Gossen Tippa sn 400.png"
-import tippa26c from "../images/Gossen/1952 Gossen Tippa sn 400.jpg"
-import tippa28 from "../images/Gossen/Gossen Tippa Briefcase0 400.jpg"
-import tippa29 from "../images/Gossen/Gossen Tippa Briefcase1 400.jpg"
-import tippa30 from "../images/Gossen/GossenSuperPilot 400.jpg"
+import tippa0 from "../../images/Gossen/1948 Gossen Tippa 400.webp"
+import tippa1 from "../../images/Gossen/1949 Gossen Tippa 400.jpg"
+import tippa2a from "../../images/Gossen/1952 Gossen Tippa 400.jpg"
+import tippa2b from "../../images/Gossen/1953 Gossen Tippa 400.jpg"
+import tippa3 from "../../images/Gossen/1953 Gossen Tippa B 400.jpg"
+import tippa4 from "../../images/Gossen/Placeholder 400.png"
+import tippa5 from "../../images/Gossen/1964 Adler Tippa 1 400.jpg"
+import tippa6 from "../../images/Gossen/1968 Adler Tippa S 400.jpg"
+import tippa7 from "../../images/Gossen/1977 Adler Tippa S 400.webp"
+import tippa20 from "../../images/Gossen/Tippa Hermes Det4 400.jpg"
+import tippa21 from "../../images/Gossen/Tippa Hermes Top Full 400.jpg"
+import tippa22 from "../../images/Gossen/Tippa Hermes Case Full1 400.jpg"
+import tippa23 from "../../images/Gossen/Tippa Hermes Front1 400.jpg"
+import tippa24 from "../../images/Gossen/Tippa Hermes Back2 400.jpg"
+import tippa25 from "../../images/Gossen/Tippa Hermes Case Det1 400.jpg"
+import tippa26a from "../../images/Gossen/1950 Gossen Tippa cn 400.png"
+import tippa26b from "../../images/Gossen/1950 Gossen Tippa sn 400.png"
+import tippa26c from "../../images/Gossen/1952 Gossen Tippa sn 400.jpg"
+import tippa28 from "../../images/Gossen/Gossen Tippa Briefcase0 400.jpg"
+import tippa29 from "../../images/Gossen/Gossen Tippa Briefcase1 400.jpg"
+import tippa30 from "../../images/Gossen/GossenSuperPilot 400.jpg"
 
 const GossenPage = ({ data }) => {
   const {
@@ -168,7 +167,7 @@ const GossenPage = ({ data }) => {
 
     <p className="source"><b>GMC Istruments</b>. <em><a href="https://www.gmc-instruments.de/en/company/about-us/history/" target="_blank" rel="noopener noreferrer">History of the Gossen Company</a>.</em> Retrieved 05 Apr 2023. [Gossen Company history on the website of the company that owns it as of April 2023. Scroll to bottom of the page and open the <em>History in Detail: 1906 - 1954</em> tab.]</p>
 
-    <p className="source"><b>Messenger, Robert</b>. <em><a href="https://oztypewriter.blogspot.com/2012/01/gossen-tippa-mighty-mouse-of.html" target="_blank" rel="noopener noreferrer">The Gossen Tippa: The Mighty Mouse of Typewriters</a>.</em> Blog post dated 07 Jan 2012. Retrieved 03 Apr 2023. [This is the best discussion and comparison  of the various Tippa models that we have seen.]</p>
+    <p className="source"><b>Messenger, Robert</b>. <em><a href="https://oztypewriter.blogspot.com/2012/01/gossen-tippa-mighty-mouse-of.html" target="_blank" rel="noopener noreferrer">The Gossen Tippa: The Mighty Mouse of Typewriters</a>.</em> Blog post dated 07 Jan 2012. Retrieved 03 Apr 2023. [This is the best discussion and comparison of the various Tippa models that we have seen.]</p>
 
     <p className="source"><b>Munk, Theodore</b>. <em><a href="https://munk.org/typecast/2015/12/26/gossen-tippa-serials-updated/" target="_blank" rel="noopener noreferrer">Gossen Tippa Serials Updated!</a>.</em> Blog post dated 26 Dec 2015. Retrieved 05 Apr 2023. [Munk announces refinements to the TWDB Tippa serial number pages, and points out that Adler simply continued their numbering from where Gossen stopped.]</p>
 

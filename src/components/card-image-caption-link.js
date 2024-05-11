@@ -14,7 +14,7 @@ const CardImageCaptionLink = ({ item }) => {
   const alt_text = `${item.year} ${item.brand.name} ${item.model.name} serial number ${item.sn}`
   const link = `/${item.year}-${item.brand.slug}-${item.model.slug}-${item.sn}/`
   
- return (
+  return (
     <div className="card" key={item.id}>
 
       <div className="img-hover-zoom">

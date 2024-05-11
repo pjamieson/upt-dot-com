@@ -4,7 +4,7 @@ export const getTypewriterAvailable = async (id) => {
   try {
     const response = await fetch(`${process.env.GATSBY_STRAPI_API_URL}/api/typewriters/${id}`)
     const result = await response.json()
-    //console.log('getTypewriterAvailable data', result.data.attributes.available)
+    console.log('getTypewriterAvailable data', result.data.attributes.available)
     return (result.data.attributes.available)
   } catch (err) {
     console.log('getTypewriterAvailable err', err)

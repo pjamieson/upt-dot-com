@@ -3,19 +3,18 @@ import { graphql } from "gatsby"
 
 import { MDBCard, MDBCardBody } from "mdb-react-ui-kit"
 
-import Layout from "../components/layout"
-//import Seo from "../components/seo"
-import CardImageCaptionLink from "../components/card-image-caption-link"
+import Layout from "../../components/layout"
+import CardImageCaptionLink from "../../components/card-image-caption-link"
 
-import hermes1 from "../images/Hermes/Hermes 1936 Baby Featherweight 400.jpg"
-import hermes2 from "../images/Hermes/Hermes 1949 Baby 400.jpg"
-import hermes3 from "../images/Hermes/Hermes 1954 Baby 400.jpg"
-import hermes4 from "../images/Hermes/Hermes 1959 Rocket 400.jpg"
-import hermes5 from "../images/Hermes/Hermes 1969 Rocket 400.jpg"
-import hermes20 from "../images/Hermes/Hermes 1938 2000 400.jpg"
-import hermes21 from "../images/Hermes/Hermes 1961 3000 400.jpg"
-import hermes22 from "../images/Hermes/Hermes 1969 3000 400.jpg"
-import hermes23 from "../images/Hermes/Hermes 1972 3000 400.jpg"
+import hermes1 from "../../images/Hermes/Hermes 1936 Baby Featherweight 400.jpg"
+import hermes2 from "../../images/Hermes/Hermes 1949 Baby 400.jpg"
+import hermes3 from "../../images/Hermes/Hermes 1954 Baby 400.jpg"
+import hermes4 from "../../images/Hermes/Hermes 1959 Rocket 400.jpg"
+import hermes5 from "../../images/Hermes/Hermes 1969 Rocket 400.jpg"
+import hermes20 from "../../images/Hermes/Hermes 1938 2000 400.jpg"
+import hermes21 from "../../images/Hermes/Hermes 1961 3000 400.jpg"
+import hermes22 from "../../images/Hermes/Hermes 1969 3000 400.jpg"
+import hermes23 from "../../images/Hermes/Hermes 1972 3000 400.jpg"
 
 const HermesPortablesPage = ({ data }) => {
   const {

@@ -58,11 +58,17 @@ const Navbar = () => {
                     </div>
                   </MDBDropdownToggle>
                   <MDBDropdownMenu>
-                    <MDBDropdownItem>
-                      <Link className="menu-link" to="/gossen-tippa/">Gossen Tippa</Link>
+                  <MDBDropdownItem>
+                      <Link className="menu-link" to="/typewriters/gossen-tippa/">Gossen Tippa</Link>
                     </MDBDropdownItem>
                     <MDBDropdownItem>
-                      <Link className="menu-link" to="/hermes-portables/">Hermes Portables</Link>
+                      <Link className="menu-link" to="/typewriters/groma-portables/">Groma Portables</Link>
+                    </MDBDropdownItem>
+                    <MDBDropdownItem>
+                      <Link className="menu-link" to="/typewriters/hermes-portables/">Hermes Portables</Link>
+                    </MDBDropdownItem>
+                    <MDBDropdownItem>
+                      <Link className="menu-link" to="/typewriters/rooy-portable/">Rooy Portable</Link>
                     </MDBDropdownItem>
                   </MDBDropdownMenu>
                 </MDBDropdown>

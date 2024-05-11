@@ -8,7 +8,6 @@ import { CartContext } from "../context/cart-context"
 
 import ImageSet from "../components/image-set"
 import Layout from "../components/layout"
-//import Seo from "../components/seo"
 
 import { formatPrice } from "../utils/format"
 import { getImageUrl } from "../utils/image-url"
@@ -83,7 +82,6 @@ const TypewriterPage = ({
 
   return (
     <Layout>
-      <Script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit.min.js" />
       <Script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit.min.js" />
       <Script type="application/ld+json">
         {`
@@ -222,52 +220,47 @@ const TypewriterPage = ({
                 <p>------</p>
                 <p><em>Please note that we are painfully aware of the damage risks entailed when shipping a typewriter. We strive to ensure that your "new" typewriter arrives at your doorstep in the same condition it leaves ours.</em></p>
                 <p><b>Packing and FedEx or UPS economy shipping of this typewriter is FREE to any street address within the continental United States.</b> Expedited shipping and shipping to locations outside the continental United States will be invoiced at our cost.</p>
+                <br />
                 { (processing) &&
                   <h3>Confirming availability...</h3>
                 }
                 <div className="inventory-msg">
                   { (!availNow) &&
-                    <>
-                      <br />
-                      <h3>Sorry, this typewriter is no longer available.</h3>
-                    </>
+                    <h3>Inquire to confirm availability.</h3>
                   }
                 </div>
               </div> {/* details */}
 
-              { (availNow) &&
-                <div className="price-action">
-                  <br />
-                  <h3 className="price">{formatPrice(price)}</h3>
-                  <div>
-                    { (price > 200 && availNow && !inCart) &&
-                      <button type="button" className="btn btn-add-to-cart btn-primary btn-rounded" onClick={() => {
-                        addToCart(cartItem)
-                        setInCart(true)
-                        //window.gtag("event", "conversion", {
-                        //  send_to: [`${process.env.GATSBY_GOOGLE_ADS_ID}/Mc6uCNTLgdEDEMvG1c8D`]
-                        //})
-                      }}>
-                        <i className="fas fa-cart-plus"></i>Add to Cart
-                      </button>
-                    }
-                    { (inCart && availNow) &&
-                      <MDBBadge color="secondary">Added to Cart</MDBBadge>
-                    }
-                  </div>
-                  <div className="btn-inquire">
-                    <button type="button" className="btn btn-inquire btn-primary btn-rounded" onClick={() => {
-                      navigate('/inquire/', {
-                        state: {
-                          title,
-                          sku,
-                          image_src: images[0].formats.small.url
-                        }
-                      })
-                    }}>Inquire</button>
-                  </div>
+              <div className="price-action">
+                <h3 className="price">{formatPrice(price)}</h3>
+                <div>
+                  { (price > 200 && availNow==true && !inCart) &&
+                    <button type="button" className="btn btn-add-to-cart btn-primary btn-rounded" onClick={() => {
+                      addToCart(cartItem)
+                      setInCart(true)
+                      //window.gtag("event", "conversion", {
+                      //  send_to: [`${process.env.GATSBY_GOOGLE_ADS_ID}/Mc6uCNTLgdEDEMvG1c8D`]
+                      //})
+                    }}>
+                      <i className="fas fa-cart-plus"></i>Add to Cart
+                    </button>
+                  }
+                  { (inCart && availNow) &&
+                    <MDBBadge color="secondary">Added to Cart</MDBBadge>
+                  }
                 </div>
-              }
+                <div className="btn-inquire">
+                  <button type="button" className="btn btn-inquire btn-primary btn-rounded" onClick={() => {
+                    navigate('/inquire/', {
+                      state: {
+                        title,
+                        sku,
+                        image_src: images[0].formats.small.url
+                      }
+                    })
+                  }}>Inquire</button>
+                </div>
+              </div>
 
             </div> {/* item-description */}
           </div> {/* details-container */}
