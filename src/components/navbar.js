@@ -62,13 +62,7 @@ const Navbar = () => {
                       <Link className="menu-link" to="/typewriters/gossen-tippa/">Gossen Tippa</Link>
                     </MDBDropdownItem>
                     <MDBDropdownItem>
-                      <Link className="menu-link" to="/typewriters/groma-portables/">Groma Portables</Link>
-                    </MDBDropdownItem>
-                    <MDBDropdownItem>
                       <Link className="menu-link" to="/typewriters/hermes-portables/">Hermes Portables</Link>
-                    </MDBDropdownItem>
-                    <MDBDropdownItem>
-                      <Link className="menu-link" to="/typewriters/rooy-portable/">Rooy Portable</Link>
                     </MDBDropdownItem>
                   </MDBDropdownMenu>
                 </MDBDropdown>
